@@ -1229,6 +1229,46 @@ function dibujarJugador() {
         }
     });
 
+    // --- CONTROLES TÁCTILES PARA CELULAR ---
+    
+    window.addEventListener('touchstart', (e) => {
+        // Despierta el audio si está suspendido por políticas del celu
+        if (typeof GestorAudio !== "undefined" && GestorAudio.contexto && GestorAudio.contexto.state === 'suspended') {
+            GestorAudio.contexto.resume();
+        }
+
+        if (e.touches.length > 0) {
+            const touch = e.touches[0];
+            // Convertimos la posición del toque en coordenadas del mundo de juego
+            const rect = canvas.getBoundingClientRect();
+            const xClient = touch.clientX - rect.left;
+            const yClient = touch.clientY - rect.top;
+
+            // Actualizamos el ángulo del jugador hacia donde tocó el dedo
+            jugador.angulo = Math.atan2(
+                (yClient + camara.y) - jugador.y, 
+                (xClient + camara.x) - jugador.x
+            );
+        }
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            const xClient = touch.clientX - rect.left;
+            const yClient = touch.clientY - rect.top;
+
+            // Actualiza la mira del jugador mientras arrastra el dedo por la pantalla
+            jugador.angulo = Math.atan2(
+                (yClient + camara.y) - jugador.y, 
+                (xClient + camara.x) - jugador.x
+            );
+        }
+    }, { passive: true });
+
+
+
     // =========================================================
     // ASOCIACIÓN DE BOTONES
     // =========================================================

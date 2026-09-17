@@ -621,6 +621,21 @@ body {
     cursor: crosshair;
 }
 
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    touch-action: none; /* ¡Clave! Evita que la página se mueva o haga zoom al tocar */
+    background-color: #040f23;
+}
+
+canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    touch-action: none;
+}
+
 /* =========================================================
    HUD
    ========================================================= */
@@ -1252,4 +1267,29 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #245b80;
+}
+
+.btn-mobile-accion {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(0, 210, 255, 0.4);
+    border: 3px solid #00d2ff;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    display: none; /* Por defecto oculto, lo mostramos si es celular */
+    z-index: 100;
+}
+
+/* Mostrar solo en pantallas táctiles / celulares */
+@media (pointer: coarse) {
+    .btn-mobile-accion {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
