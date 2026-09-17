@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Net Hunters</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- 1. Cargas primero tu gestor de audio -->
+        <script src="audio.js"></script>
+
+        <!-- 2. Cargas tu archivo de juego intacto -->
+        <script src="game.js"></script>
+
+</head>
+
+<body>
+
+    <!-- ========================= -->
+    <!-- MENÚ PRINCIPAL -->
+    <!-- ========================= -->
+
+    <main id="menuPrincipal" class="pantalla activa">
+
+        <div class="menu-contenedor">
+
+            <div class="logo">
+                <span class="logo-icono">🕸️</span>
+                <h1>NET HUNTERS</h1>
+                <p>Capturá. Escapá. Sobreviví.</p>
+            </div>
+
+            <div class="menu-botones">
+
+                <button id="btnJugar" class="boton boton-principal">
+                    🎮 JUGAR
+                </button>
+
+                <button id="btnCrearSala" class="boton">
+                    🌐 CREAR SALA
+                </button>
+
+                <button id="btnUnirseSala" class="boton">
+                    🔗 UNIRSE A UNA SALA
+                </button>
+
+            </div>
+
+            <p class="version">Net Hunters • Prototipo 0.1</p>
+
+        </div>
+
+    </main>
+
+
+    <!-- ========================= -->
+    <!-- SALA -->
+    <!-- ========================= -->
+
+    <section id="pantallaSala" class="pantalla">
+
+        <div class="sala-contenedor">
+
+            <div class="sala-titulo">
+                <span>🌐</span>
+                <h2>SALA DE PARTIDA</h2>
+            </div>
+
+            <div class="codigo-sala">
+
+                <span>CÓDIGO DE SALA</span>
+
+                <strong id="codigoSala">
+                    ------
+                </strong>
+
+                <button id="btnCopiarCodigo" class="boton-pequeno">
+                    📋 COPIAR
+                </button>
+
+            </div>
+
+
+            <div class="jugadores">
+
+                <h3>JUGADORES</h3>
+
+                <div id="listaJugadores">
+
+                    <div class="jugador">
+                        <span class="jugador-icono">🕵️</span>
+                        <span class="jugador-nombre">Jugador 1</span>
+                        <span class="jugador-estado">LISTO</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="sala-botones">
+
+                <button id="btnIniciarPartida" class="boton boton-principal">
+                    🚀 INICIAR PARTIDA
+                </button>
+
+                <button id="btnVolverMenu" class="boton boton-secundario">
+                    ← VOLVER
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- UNIRSE A SALA -->
+    <!-- ========================= -->
+
+    <section id="pantallaUnirse" class="pantalla">
+
+        <div class="unirse-contenedor">
+
+            <div class="sala-titulo">
+                <span>🔗</span>
+                <h2>UNIRSE A UNA SALA</h2>
+            </div>
+
+            <p class="texto-ayuda">
+                Introducí el código que te pasó tu amigo.
+            </p>
+
+            <input
+                id="inputCodigoSala"
+                class="input-codigo"
+                type="text"
+                maxlength="6"
+                placeholder="A7K92X"
+                autocomplete="off"
+            >
+
+            <button id="btnConfirmarUnirse" class="boton boton-principal">
+                🚀 UNIRSE
+            </button>
+
+            <button id="btnVolverUnirse" class="boton boton-secundario">
+                ← VOLVER
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- PANTALLA DEL JUEGO -->
+    <!-- ========================= -->
+
+    <section id="pantallaJuego" class="pantalla juego">
+
+        <!-- HUD -->
+
+        <div id="hud">
+
+            <div class="hud-bloque">
+
+                <span class="hud-etiqueta">
+                    PUNTOS
+                </span>
+
+                <strong id="puntos">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="hud-centro">
+
+                <span id="objetivoTexto">
+                    ENCONTRÁ A LOS SOSPECHOSOS
+                </span>
+
+            </div>
+
+
+            <div class="hud-bloque">
+
+                <span class="hud-etiqueta">
+                    CAPTURADOS
+                </span>
+
+                <strong id="capturados">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- CANVAS DEL JUEGO -->
+
+        <canvas id="gameCanvas"></canvas>
+
+
+        <!-- INDICADOR DE RED -->
+
+        <div id="indicadorRed">
+
+            <div class="red-icono">
+                🕸️
+            </div>
+
+            <span>
+                RED
+            </span>
+
+        </div>
+
+
+        <!-- MENSAJE DE CAPTURA -->
+
+        <div id="mensajeCaptura">
+
+            <div class="captura-contenido">
+
+                <span class="captura-icono">
+                    🕸️
+                </span>
+
+                <h2>¡CAPTURADO!</h2>
+
+                <p id="capturaPuntos">
+                    +100 PUNTOS
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAUSA -->
+
+        <div id="menuPausa">
+
+            <div class="pausa-contenedor">
+
+                <h2>PAUSA</h2>
+
+                <button id="btnContinuar" class="boton boton-principal">
+                    ▶ CONTINUAR
+                </button>
+
+                <button id="btnSalirPartida" class="boton boton-secundario">
+                    🚪 SALIR DE LA PARTIDA
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- PANTALLA FINAL -->
+    <!-- ========================= -->
+
+    <section id="pantallaFinal" class="pantalla">
+
+        <div class="final-contenedor">
+
+            <div class="final-icono">
+                🕸️
+            </div>
+
+            <h1>PARTIDA TERMINADA</h1>
+
+            <p class="resultado-texto">
+                ¡Buen trabajo, cazador!
+            </p>
+
+            <div class="resultado">
+
+                <div class="resultado-item">
+
+                    <span>PUNTOS</span>
+
+                    <strong id="resultadoPuntos">
+                        0
+                    </strong>
+
+                </div>
+
+                <div class="resultado-item">
+
+                    <span>CAPTURADOS</span>
+
+                    <strong id="resultadoCapturados">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <button id="btnVolverFinal" class="boton boton-principal">
+                🏠 VOLVER AL MENÚ
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- NOTIFICACIÓN -->
+    <!-- ========================= -->
+
+    <div id="notificacion">
+        <span id="notificacionTexto"></span>
+    </div>
+
+</body>
+</html>
