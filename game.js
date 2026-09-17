@@ -84,6 +84,54 @@ document.addEventListener("DOMContentLoaded", () => {
         ancho: 2400,
         alto: 1800
     };
+    
+    // =========================================================
+    // CRONÓMETRO (CUENTA REGRESIVA)
+    // =========================================================
+
+    // --- VARIABLES GLOBALES DEL CRONÓMETRO ---
+    let segundosRestantes = 180; // ⏱️ 180 segundos = 3 minutos (modificalo acá si querés otro tiempo inicial)
+    let intervaloCronometro = null;
+
+    // --- FUNCIONES DEL CRONÓMETRO ---
+    function iniciarCronometro() {
+        segundosRestantes = 180; // Reinicia el tiempo al arrancar la partida
+        const elementoCronometro = document.getElementById("textoCronometro");
+        
+        if (intervaloCronometro) clearInterval(intervaloCronometro);
+
+        intervaloCronometro = setInterval(() => {
+            if (segundosRestantes > 0) {
+                segundosRestantes--; // Resta un segundo cada vez
+            } else {
+                // 🛑 EL TIEMPO LLEGó A CERO
+                detenerCronometro();
+                
+                // Si tenés una función de fin de juego por tiempo, se ejecuta acá:
+                if (typeof finalizarJuegoPorTiempo === "function") {
+                    finalizarJuegoPorTiempo();
+                }
+                return;
+            }
+
+            let minutos = Math.floor(segundosRestantes / 60);
+            let segundos = segundosRestantes % 60;
+
+            let minFormateado = String(minutos).padStart(2, '0');
+            let segFormateado = String(segundos).padStart(2, '0');
+
+            if (elementoCronometro) {
+                elementoCronometro.textContent = `${minFormateado}:${segFormateado}`;
+            }
+        }, 1000);
+    }
+
+    function detenerCronometro() {
+        if (intervaloCronometro) {
+            clearInterval(intervaloCronometro);
+            intervaloCronometro = null;
+        }
+    }
 
     // =========================================================
     // JUGADOR
@@ -147,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "#ff3344", // Rojo
         "#33ccff", // Celeste
         "#33ff66", // Verde
-        "#ffcc00", // Amarillo
+        "#ff6600", // Amarillo
         "#ff66cc", // Rosa
         "#9933ff", // Morado
         "#ff9933", // Naranja
@@ -1023,7 +1071,7 @@ function dibujarJugador() {
         console.log("🏁 FIN DE PARTIDA:", motivo);
     }
 
-    // =========================================================
+    /// =========================================================
     // INICIAR JUEGO
     // =========================================================
 
@@ -1033,6 +1081,8 @@ function dibujarJugador() {
         vidaJugador = vidaMaxima;
         invulnerableHasta = 0;
         nivelPeligro = 0;
+        
+        iniciarCronometro(); // ⏱️ Arranca el reloj
 
         // 🎵 ASEGURAR QUE EL AUDIO SE DESPIERTE Y SUENE LA MÚSICA DE JUEGO:
         if (typeof GestorAudio !== "undefined") {
@@ -1040,11 +1090,8 @@ function dibujarJugador() {
                 GestorAudio.contexto.resume();
             }
             GestorAudio.juego(); // Arranca la música estilo Pac-Man / Backrooms
+            GestorAudio.sfxBoton();
         }
-
-        // 🎵 AGREGAR ESTO:
-        GestorAudio.juego();
-        GestorAudio.sfxBoton();
 
         jugador.x = mundo.ancho / 2;
         jugador.y = mundo.alto / 2;

@@ -1,4 +1,3 @@
-
 /* =========================================================
    NET HUNTERS
    STYLE.CSS
@@ -7,10 +6,11 @@
 
 /* =========================================================
    CONFIGURACIÓN GENERAL
+   Define reseteos globales y propiedades básicas de la página.
    ========================================================= */
 
 * {
-    box-sizing: border-box;
+    box-sizing: border-box; /* Incluye bordes y padding dentro del ancho/alto total */
     margin: 0;
     padding: 0;
 }
@@ -19,18 +19,29 @@ html,
 body {
     width: 100%;
     height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Evita barras de desplazamiento en la ventana */
+    touch-action: none; /* ¡Clave en móviles! Evita que la página se mueva o haga zoom al tocar */
+    background-color: #040f23; /* Color de fondo general por defecto */
 }
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: #050b14;
-    color: #ffffff;
-    overflow: hidden;
-    user-select: none;
+    color: #ffffff; /* Color de texto predeterminado blanco */
+    user-select: none; /* Impide que el usuario seleccione texto accidentalmente jugando */
+}
+
+canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    touch-action: none;
 }
 
 /* =========================================================
    PANTALLAS
+   Gestiona qué pantallas se muestran u ocultan mediante la clase .activa
    ========================================================= */
 
 .pantalla {
@@ -38,18 +49,19 @@ body {
     inset: 0;
     width: 100%;
     height: 100%;
-    display: none;
+    display: none; /* Ocultas por defecto */
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
 
 .pantalla.activa {
-    display: flex;
+    display: flex; /* Se muestran como contenedor flexible cuando están activas */
 }
 
 /* =========================================================
-   FONDOS
+   FONDOS DE MENÚS Y PANTALLAS
+   Crea efectos visuales espaciales con múltiples gradientes radiales
    ========================================================= */
 
 #menuPrincipal,
@@ -81,7 +93,7 @@ body {
 }
 
 /* =========================================================
-   DECORACIÓN DE FONDO
+   DECORACIÓN DE FONDO (Líneas de cuadrícula/grilla tecnológica)
    ========================================================= */
 
 #menuPrincipal::before,
@@ -103,12 +115,11 @@ body {
             transparent 1px
         );
 
-    background-size: 45px 45px;
+    background-size: 45px 45px; /* Tamaño de las celdas de la grilla */
     pointer-events: none;
 }
 
-/* brillo ambiental */
-
+/* Brillo ambiental difuso de fondo */
 #menuPrincipal::after,
 #pantallaSala::after,
 #pantallaUnirse::after,
@@ -124,7 +135,7 @@ body {
 }
 
 /* =========================================================
-   MENÚ PRINCIPAL
+   MENÚ PRINCIPAL (Estructura contenedora)
    ========================================================= */
 
 .menu-contenedor {
@@ -138,7 +149,7 @@ body {
 }
 
 /* =========================================================
-   LOGO
+   LOGO DEL JUEGO
    ========================================================= */
 
 .logo {
@@ -154,7 +165,7 @@ body {
         drop-shadow(0 0 8px rgba(0, 183, 255, 0.8))
         drop-shadow(0 0 28px rgba(0, 183, 255, 0.35));
 
-    animation: logoFlotar 3s ease-in-out infinite;
+    animation: logoFlotar 3s ease-in-out infinite; /* Animación de flotación suave */
 }
 
 .logo h1 {
@@ -162,6 +173,7 @@ body {
     font-weight: 900;
     letter-spacing: 5px;
 
+    /* Degradado de texto para el título principal */
     background:
         linear-gradient(
             180deg,
@@ -188,7 +200,8 @@ body {
 }
 
 /* =========================================================
-   BOTONES
+   BOTONES GENERALES
+   Estilos base para interactividad, sombras y efectos hover/active
    ========================================================= */
 
 .menu-botones {
@@ -228,8 +241,7 @@ body {
         box-shadow 0.2s ease;
 }
 
-/* brillo que atraviesa el botón */
-
+/* Efecto de brillo que atraviesa el botón de izquierda a derecha en hover */
 .boton::before {
     content: "";
     position: absolute;
@@ -255,8 +267,7 @@ body {
 }
 
 .boton:hover {
-    transform: translateY(-3px);
-
+    transform: translateY(-3px); /* Eleva ligeramente el botón al pasar el mouse */
     border-color: rgba(0, 191, 255, 0.8);
 
     background:
@@ -272,11 +283,11 @@ body {
 }
 
 .boton:active {
-    transform: scale(0.97);
+    transform: scale(0.97); /* Efecto de hundimiento al hacer clic */
 }
 
 /* =========================================================
-   BOTÓN PRINCIPAL
+   BOTÓN PRINCIPAL (Destacado, ej: Jugar, Iniciar)
    ========================================================= */
 
 .boton-principal {
@@ -308,7 +319,7 @@ body {
 }
 
 /* =========================================================
-   BOTÓN SECUNDARIO
+   BOTÓN SECUNDARIO (Más sutiles, ej: Opciones, Volver)
    ========================================================= */
 
 .boton-secundario {
@@ -335,7 +346,8 @@ body {
 }
 
 /* =========================================================
-   SALA / UNIRSE / FINAL
+   CONTENEDORES DE SALA / UNIRSE / FINAL
+   Paneles modales estilo tarjeta con efecto cristal (backdrop-filter)
    ========================================================= */
 
 .sala-contenedor,
@@ -362,7 +374,7 @@ body {
         0 0 60px rgba(0, 140, 255, 0.05),
         inset 0 1px 0 rgba(255, 255, 255, 0.04);
 
-    backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px); /* Efecto vidrio esmerilado por detrás */
 }
 
 /* =========================================================
@@ -379,8 +391,7 @@ body {
 
 .sala-titulo span {
     font-size: 30px;
-    filter:
-        drop-shadow(0 0 8px rgba(0, 180, 255, 0.6));
+    filter: drop-shadow(0 0 8px rgba(0, 180, 255, 0.6));
 }
 
 .sala-titulo h2 {
@@ -396,7 +407,6 @@ body {
     padding: 22px;
     margin-bottom: 28px;
     text-align: center;
-
     border-radius: 14px;
 
     background:
@@ -420,31 +430,24 @@ body {
 .codigo-sala strong {
     display: block;
     margin-bottom: 15px;
-
     font-size: 34px;
     letter-spacing: 8px;
     color: #28b8ff;
-
-    text-shadow:
-        0 0 15px rgba(0, 180, 255, 0.4);
+    text-shadow: 0 0 15px rgba(0, 180, 255, 0.4);
 }
 
 /* =========================================================
-   BOTÓN PEQUEÑO
+   BOTÓN PEQUEÑO (Ej: Copiar código)
    ========================================================= */
 
 .boton-pequeno {
     padding: 8px 14px;
     border-radius: 8px;
-
     border: 1px solid rgba(255, 255, 255, 0.1);
-
     background: rgba(255, 255, 255, 0.05);
     color: #b8d4e8;
-
     font-size: 11px;
     font-weight: 700;
-
     cursor: pointer;
     transition: 0.2s ease;
 }
@@ -453,13 +456,11 @@ body {
     background: rgba(0, 160, 255, 0.12);
     border-color: rgba(0, 170, 255, 0.35);
     color: #ffffff;
-
-    box-shadow:
-        0 0 15px rgba(0, 170, 255, 0.1);
+    box-shadow: 0 0 15px rgba(0, 170, 255, 0.1);
 }
 
 /* =========================================================
-   JUGADORES
+   LISTA DE JUGADORES (En sala multijugador)
    ========================================================= */
 
 .jugadores {
@@ -483,9 +484,7 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-
     padding: 13px 15px;
-
     border-radius: 10px;
 
     background:
@@ -496,10 +495,7 @@ body {
         );
 
     border: 1px solid rgba(255, 255, 255, 0.05);
-
-    transition:
-        transform 0.2s ease,
-        border-color 0.2s ease;
+    transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .jugador:hover {
@@ -521,14 +517,8 @@ body {
     font-size: 9px;
     letter-spacing: 1px;
     color: #4dd6a3;
-
-    text-shadow:
-        0 0 8px rgba(77, 214, 163, 0.4);
+    text-shadow: 0 0 8px rgba(77, 214, 163, 0.4);
 }
-
-/* =========================================================
-   BOTONES DE SALA
-   ========================================================= */
 
 .sala-botones {
     display: flex;
@@ -537,7 +527,7 @@ body {
 }
 
 /* =========================================================
-   UNIRSE
+   PANTALLA UNIRSE (Ingreso de código de sala)
    ========================================================= */
 
 .texto-ayuda {
@@ -551,10 +541,8 @@ body {
     width: 100%;
     height: 65px;
     margin-bottom: 15px;
-
     border-radius: 12px;
     border: 1px solid rgba(100, 190, 255, 0.2);
-
     outline: none;
 
     background:
@@ -565,19 +553,16 @@ body {
         );
 
     color: #ffffff;
-
     text-align: center;
     font-size: 25px;
     font-weight: 800;
     letter-spacing: 7px;
     text-transform: uppercase;
-
     transition: 0.2s ease;
 }
 
 .input-codigo:focus {
     border-color: #12aaff;
-
     box-shadow:
         0 0 20px rgba(0, 160, 255, 0.15),
         inset 0 0 20px rgba(0, 160, 255, 0.04);
@@ -588,7 +573,7 @@ body {
 }
 
 /* =========================================================
-   JUEGO
+   JUEGO & CANVAS
    ========================================================= */
 
 .juego {
@@ -597,17 +582,11 @@ body {
     justify-content: stretch;
 }
 
-/* =========================================================
-   CANVAS
-   ========================================================= */
-
 #gameCanvas {
     position: absolute;
     inset: 0;
-
     width: 100%;
     height: 100%;
-
     display: block;
 
     background:
@@ -621,50 +600,34 @@ body {
     cursor: crosshair;
 }
 
-body, html {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    touch-action: none; /* ¡Clave! Evita que la página se mueva o haga zoom al tocar */
-    background-color: #040f23;
-}
-
-canvas {
-    display: block;
-    width: 100vw;
-    height: 100vh;
-    touch-action: none;
-}
-
 /* =========================================================
-   HUD
+   HUD (Cabecera durante la partida)
+   Actualizado a 3 columnas simétricas para Puntos, Tiempo y Capturados
    ========================================================= */
 
 #hud {
     position: absolute;
     z-index: 10;
-
     top: 0;
     left: 0;
-
     width: 100%;
     padding: 18px 22px;
 
+    /* Grilla de 3 columnas fijas y distribuidas para los bloques del HUD */
     display: grid;
-    grid-template-columns: 160px 1fr 160px;
-
+    grid-template-columns: 140px 140px 140px;
+    justify-content: space-between;
     align-items: center;
 
-    pointer-events: none;
+    pointer-events: none; /* Permite hacer clic a través del HUD hacia el canvas */
 }
 
+/* Tarjetas individuales de los contadores en el HUD */
 .hud-bloque {
     display: flex;
     flex-direction: column;
     gap: 3px;
-
     padding: 10px 15px;
-
     border-radius: 11px;
 
     background:
@@ -675,15 +638,12 @@ canvas {
         );
 
     border: 1px solid rgba(255, 255, 255, 0.08);
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.2);
-
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
 }
 
 .hud-bloque:last-child {
-    text-align: right;
+    text-align: right; /* Alinea a la derecha el último bloque (capturados) */
 }
 
 .hud-etiqueta {
@@ -694,52 +654,19 @@ canvas {
 
 .hud-bloque strong {
     font-size: 22px;
-
     color: #ffffff;
-
-    text-shadow:
-        0 0 10px rgba(0, 180, 255, 0.18);
-}
-
-.hud-centro {
-    text-align: center;
-}
-
-#objetivoTexto {
-    display: inline-block;
-
-    padding: 10px 18px;
-
-    border-radius: 30px;
-
-    background:
-        rgba(4, 12, 21, 0.78);
-
-    border: 1px solid rgba(0, 183, 255, 0.12);
-
-    color: #a8c5da;
-
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-
-    box-shadow:
-        0 5px 25px rgba(0, 0, 0, 0.18);
-
-    backdrop-filter: blur(10px);
+    text-shadow: 0 0 10px rgba(0, 180, 255, 0.18);
 }
 
 /* =========================================================
-   INDICADOR DE RED
+   INDICADOR DE RED (HUD inferior derecho)
    ========================================================= */
 
 #indicadorRed {
     position: absolute;
     z-index: 20;
-
     right: 25px;
     bottom: 25px;
-
     width: 90px;
     height: 90px;
 
@@ -747,9 +674,7 @@ canvas {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     gap: 2px;
-
     border-radius: 50%;
 
     background:
@@ -766,15 +691,12 @@ canvas {
         inset 0 0 20px rgba(0, 160, 255, 0.05);
 
     pointer-events: none;
-
     animation: redPulso 2.5s ease-in-out infinite;
 }
 
 .red-icono {
     font-size: 30px;
-
-    filter:
-        drop-shadow(0 0 8px rgba(0, 190, 255, 0.65));
+    filter: drop-shadow(0 0 8px rgba(0, 190, 255, 0.65));
 }
 
 #indicadorRed span {
@@ -785,19 +707,16 @@ canvas {
 }
 
 /* =========================================================
-   MENSAJE DE CAPTURA
+   MENSAJE DE CAPTURA (Pantalla de impacto temporal)
    ========================================================= */
 
 #mensajeCaptura {
     position: absolute;
     z-index: 50;
-
     inset: 0;
-
     display: none;
     align-items: center;
     justify-content: center;
-
     pointer-events: none;
 
     background:
@@ -815,12 +734,9 @@ canvas {
 
 .captura-contenido {
     position: relative;
-
     min-width: 280px;
     padding: 30px 45px;
-
     text-align: center;
-
     border-radius: 22px;
 
     background:
@@ -836,14 +752,11 @@ canvas {
         0 0 40px rgba(0, 180, 255, 0.15),
         0 25px 80px rgba(0, 0, 0, 0.45);
 
-    transform: scale(1);
-
     animation: impactoCaptura 0.55s ease;
 }
 
 .captura-icono {
     display: block;
-
     font-size: 75px;
     margin-bottom: 8px;
 
@@ -868,41 +781,30 @@ canvas {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-
-    text-shadow:
-        0 5px 25px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 5px 25px rgba(0, 0, 0, 0.8);
 }
 
 .captura-contenido p {
     margin-top: 8px;
-
     font-size: 18px;
     font-weight: 800;
-
     color: #41c7ff;
     letter-spacing: 2px;
-
-    text-shadow:
-        0 0 12px rgba(0, 190, 255, 0.5);
+    text-shadow: 0 0 12px rgba(0, 190, 255, 0.5);
 }
 
 /* =========================================================
-   PAUSA
+   MENÚ DE PAUSA
    ========================================================= */
 
 #menuPausa {
     position: absolute;
     z-index: 100;
-
     inset: 0;
-
     display: none;
     align-items: center;
     justify-content: center;
-
-    background:
-        rgba(2, 8, 15, 0.76);
-
+    background: rgba(2, 8, 15, 0.76);
     backdrop-filter: blur(10px);
 }
 
@@ -912,11 +814,8 @@ canvas {
 
 .pausa-contenedor {
     width: min(90%, 400px);
-
     padding: 35px;
-
     border-radius: 20px;
-
     text-align: center;
 
     background:
@@ -944,7 +843,7 @@ canvas {
 }
 
 /* =========================================================
-   PANTALLA FINAL
+   PANTALLA FINAL (Resultados de partida)
    ========================================================= */
 
 .final-contenedor {
@@ -973,14 +872,12 @@ canvas {
 .resultado {
     display: grid;
     grid-template-columns: 1fr 1fr;
-
     gap: 12px;
     margin: 30px 0;
 }
 
 .resultado-item {
     padding: 18px;
-
     border-radius: 12px;
 
     background:
@@ -996,7 +893,6 @@ canvas {
 .resultado-item span {
     display: block;
     margin-bottom: 6px;
-
     font-size: 9px;
     letter-spacing: 2px;
     color: #71899c;
@@ -1005,31 +901,23 @@ canvas {
 .resultado-item strong {
     font-size: 30px;
     color: #35baff;
-
-    text-shadow:
-        0 0 12px rgba(0, 180, 255, 0.3);
+    text-shadow: 0 0 12px rgba(0, 180, 255, 0.3);
 }
 
 /* =========================================================
-   NOTIFICACIONES
+   NOTIFICACIONES FLOTANTES
    ========================================================= */
 
 #notificacion {
     position: fixed;
     z-index: 200;
-
     left: 50%;
     bottom: 30px;
-
     transform: translate(-50%, 20px);
-
     padding: 12px 20px;
-
     border-radius: 10px;
 
-    background:
-        rgba(5, 15, 25, 0.96);
-
+    background: rgba(5, 15, 25, 0.96);
     border: 1px solid rgba(0, 170, 255, 0.25);
 
     box-shadow:
@@ -1037,12 +925,8 @@ canvas {
         0 0 20px rgba(0, 150, 255, 0.05);
 
     opacity: 0;
-
     pointer-events: none;
-
-    transition:
-        opacity 0.25s ease,
-        transform 0.25s ease;
+    transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 #notificacion.visible {
@@ -1056,28 +940,49 @@ canvas {
 }
 
 /* =========================================================
-   ANIMACIONES
+   BOTÓN TÁCTIL PARA MÓVILES (Acción en pantalla)
    ========================================================= */
 
-@keyframes logoFlotar {
-    0%,
-    100% {
-        transform: translateY(0);
-    }
+.btn-mobile-accion {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(0, 210, 255, 0.4);
+    border: 3px solid #00d2ff;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    display: none; /* Oculto por defecto en computadoras */
+    z-index: 100;
+}
 
-    50% {
-        transform: translateY(-5px);
+/* Se muestra solo en dispositivos con pantallas táctiles */
+@media (pointer: coarse) {
+    .btn-mobile-accion {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
 
+/* =========================================================
+   ANIMACIONES KEYFRAMES
+   ========================================================= */
+
+@keyframes logoFlotar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
 @keyframes redPulso {
-    0%,
-    100% {
+    0%, 100% {
         box-shadow:
             0 0 20px rgba(0, 160, 255, 0.12),
             inset 0 0 20px rgba(0, 160, 255, 0.05);
     }
-
     50% {
         box-shadow:
             0 0 30px rgba(0, 180, 255, 0.25),
@@ -1086,65 +991,30 @@ canvas {
 }
 
 @keyframes aparecerCaptura {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes impactoCaptura {
-    0% {
-        opacity: 0;
-        transform:
-            scale(0.45)
-            rotate(-8deg);
-    }
-
-    45% {
-        opacity: 1;
-        transform:
-            scale(1.12)
-            rotate(3deg);
-    }
-
-    70% {
-        transform:
-            scale(0.96)
-            rotate(-1deg);
-    }
-
-    100% {
-        transform:
-            scale(1)
-            rotate(0);
-    }
+    0% { opacity: 0; transform: scale(0.45) rotate(-8deg); }
+    45% { opacity: 1; transform: scale(1.12) rotate(3deg); }
+    70% { transform: scale(0.96) rotate(-1deg); }
+    100% { transform: scale(1) rotate(0); }
 }
 
 @keyframes iconoCaptura {
-    0% {
-        transform: scale(0.5) rotate(-15deg);
-    }
-
-    50% {
-        transform: scale(1.2) rotate(8deg);
-    }
-
-    100% {
-        transform: scale(1) rotate(0);
-    }
+    0% { transform: scale(0.5) rotate(-15deg); }
+    50% { transform: scale(1.2) rotate(8deg); }
+    100% { transform: scale(1) rotate(0); }
 }
 
 /* =========================================================
-   RESPONSIVE
+   DISEÑO RESPONSIVE (Adaptación para celulares y tablets)
    ========================================================= */
 
 @media (max-width: 700px) {
-
     #hud {
-        grid-template-columns: 110px 1fr 110px;
+        grid-template-columns: 105px 105px 105px;
         padding: 10px;
     }
 
@@ -1154,11 +1024,6 @@ canvas {
 
     .hud-bloque strong {
         font-size: 17px;
-    }
-
-    #objetivoTexto {
-        font-size: 8px;
-        padding: 8px 10px;
     }
 
     #indicadorRed {
@@ -1199,7 +1064,6 @@ canvas {
 }
 
 @media (max-width: 450px) {
-
     .logo {
         margin-bottom: 35px;
     }
@@ -1219,7 +1083,7 @@ canvas {
     }
 
     #hud {
-        grid-template-columns: 90px 1fr 90px;
+        grid-template-columns: 90px 90px 90px;
     }
 
     .hud-etiqueta {
@@ -1230,27 +1094,19 @@ canvas {
         font-size: 15px;
     }
 
-    #objetivoTexto {
-        display: none;
-    }
-
     .resultado {
         grid-template-columns: 1fr;
     }
 }
 
 /* =========================================================
-   SELECCIÓN DE TEXTO
+   SELECCIÓN DE TEXTO & SCROLLBARS PERSONALIZADAS
    ========================================================= */
 
 ::selection {
     background: rgba(0, 170, 255, 0.35);
     color: #ffffff;
 }
-
-/* =========================================================
-   SCROLLBAR
-   ========================================================= */
 
 ::-webkit-scrollbar {
     width: 7px;
@@ -1267,29 +1123,4 @@ canvas {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #245b80;
-}
-
-.btn-mobile-accion {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: rgba(0, 210, 255, 0.4);
-    border: 3px solid #00d2ff;
-    color: white;
-    font-weight: bold;
-    font-size: 12px;
-    display: none; /* Por defecto oculto, lo mostramos si es celular */
-    z-index: 100;
-}
-
-/* Mostrar solo en pantallas táctiles / celulares */
-@media (pointer: coarse) {
-    .btn-mobile-accion {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
 }
